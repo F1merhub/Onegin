@@ -9,7 +9,9 @@ int my_strcmp(char* str1, char* str2);
 
 void input(char **A, char *buffer, int file_size);
 
-void find_line_count(long * file_size, FILE * file1);
+void find_size(long * file_size, FILE * file1);
+
+void find_line_count(int *line_count, long file_size, char * buffer);
 
 int main()
 {
@@ -22,7 +24,7 @@ int main()
     }
 
     long file_size = 0;
-    find_line_count(&file_size, file1);
+    find_size(&file_size, file1);
 
     char *buffer;
     buffer = (char*)malloc(file_size * sizeof(char));
@@ -37,10 +39,11 @@ int main()
     fread(buffer, 1, file_size, file1);
 
     int line_count = 0;
-    for (int i = 0; i < file_size; ++i) {
+    find_line_count(&line_count, file_size, buffer);
+ /*   for (int i = 0; i < file_size; ++i) {
         if (buffer[i] == '\n')
             line_count++;
-    }
+    }*/
 
     char text1[] = "*****TEXT BEFORE SORT*****\n\n";
     char text2[] = "*****TEXT AFTER SORT*****\n\n";
@@ -121,8 +124,15 @@ void input(char **A, char *buffer, int file_size) {
     }
 }
 
-void find_line_count(long * file_size, FILE * file1) {
+void find_size(long * file_size, FILE * file1) {
     fseek(file1, 0, SEEK_END);
     *file_size = ftell(file1);
     fseek(file1, 0, SEEK_SET);
+}
+
+void find_line_count(int *line_count, long file_size, char * buffer) {
+    for (int i = 0; i < file_size; ++i) {
+        if (buffer[i] == '\n')
+            (*line_count)++;
+    }
 }

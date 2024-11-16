@@ -1,9 +1,15 @@
 *****TEXT BEFORE SORT*****
 
-fffff
-aaaabbbbb
+fqwfqweqwef
+qwefqwefqwefbnbj
+ue5hw4gh
+m f wtw
+uiyl,r
 *****TEXT AFTER SORT*****
 
-aaaa
-bbbbb
-fffff
+eue5hw4gh
+fqwfqweqwef
+md f wtw
+qwefbnbj
+qwefqwef
+uiryl,r
