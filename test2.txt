@@ -1,18 +1,14 @@
 *****TEXT BEFORE SORT*****
 
-fwefojnweqw q gq g
- h4hww hwjw  qagk rjehwh
-  q45h524hwrh
-    yrkryke
-     wagqgq
- erwwq 
+cccc.b
+cccc,acccc.a
+ccc,b
+
 
 *****TEXT AFTER SORT*****
 
-      wagqgq
-     yrkryke
-   q45h524hwrh
-  qagk rjehwh
- ergwwq 
- h4hww hwjw
-fwefojnweqw q gq g
+
+cccc,a
+cccc.a
+cccc.b
+cccc,b

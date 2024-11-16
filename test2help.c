@@ -157,3 +157,14 @@ void print_not_sort_file(long file_size, int line_count, char * buffer, FILE * f
     fputs(text2, file2);
 
 }
+
+int if_in_str(char * str, char c) {
+    int i = 0;
+    int flag = 0;
+    while(str[i]) {
+        if  (str[i] == c)
+            flag = 1;
+        i++;
+    }
+    return flag;
+}

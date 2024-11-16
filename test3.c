@@ -22,7 +22,7 @@ int my_strcmp(char* str1, char* str2) {
 
         if (if_in_str(A, str1[i1]) && if_in_str(A, str2[i2]))
         {
-            printf("%d %d", if_in_str(A, str1[i1]), if_in_str(A, str2[i2]));
+            //printf("%d %d", if_in_str(A, str1[i1]), if_in_str(A, str2[i2]));
             if (str1[i1] != str2[i2])
                 break;
             i1++;
@@ -42,9 +42,10 @@ int my_strcmp(char* str1, char* str2) {
 
 
 int main() {
-    char str1[] = "3";
-    char str2[] = "6";
-    my_strcmp(str1, str2);
-    //printf("%d", my_strcmp(str1, str2));
+    char str1[] = "fchc";
+    char str2[] = "fahb";
+    char A[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int x = my_strcmp(str1, str2);
+    printf("%d", x);
     return 0;
 }
