@@ -9,26 +9,59 @@ int my_strcmp(char* str1, char* str2);
 
 void input(char **A, char *buffer, int file_size);
 
+void find_line_count(long * file_size, FILE * file1);
+
 int main()
 {
     FILE *file1 = fopen("test1.txt", "rb");
 
-    fseek(file1, 0, SEEK_END);
-    long file_size = ftell(file1);
-    fseek(file1, 0, SEEK_SET);
+    if (!file1)
+    {
+        printf("text from test1.txt does not exist\n");
+        return -1;
+    }
+
+    long file_size = 0;
+    find_line_count(&file_size, file1);
 
     char *buffer;
     buffer = (char*)malloc(file_size * sizeof(char));
-    fread(buffer, 1, file_size, file1);
+    if (buffer == NULL)
+    {
+        printf("ERROR of working malloc: buffer == NULL\n");
+            free(buffer);
+            fclose(file1);
+            return -1;
 
-    FILE *file2 = fopen("test2.txt", "w");
-    fwrite(buffer, 1, file_size, file2);
+    }
+    fread(buffer, 1, file_size, file1);
 
     int line_count = 0;
     for (int i = 0; i < file_size; ++i) {
         if (buffer[i] == '\n')
             line_count++;
     }
+
+    char text1[] = "*****TEXT BEFORE SORT*****\n\n";
+    char text2[] = "*****TEXT AFTER SORT*****\n\n";
+    int k = 0;
+    char buffer_for_repeat[file_size - line_count + 1] = {};
+    for (int i = 0; i < file_size - line_count; ++i) {
+        if (buffer[i] != '\r')
+            buffer_for_repeat[i] = buffer[i + k];
+        else
+        {
+            k++;
+            buffer_for_repeat[i] = buffer[i + k];
+        }
+    }
+    buffer_for_repeat[file_size - line_count] = '\n';
+
+
+    FILE *file2 = fopen("test2.txt", "w");
+    fputs(text1, file2);
+    fwrite(buffer_for_repeat, 1, file_size - line_count + 1, file2);
+    fputs(text2, file2);
 
     char **A;                                           //
     A = (char**)malloc(sizeof(char*)*line_count);       // расставляем указатели в массиве A
@@ -86,4 +119,10 @@ void input(char **A, char *buffer, int file_size) {
         }
         assert((i >= 0) && (i < file_size));
     }
+}
+
+void find_line_count(long * file_size, FILE * file1) {
+    fseek(file1, 0, SEEK_END);
+    *file_size = ftell(file1);
+    fseek(file1, 0, SEEK_SET);
 }
