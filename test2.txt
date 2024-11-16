@@ -1,14 +1,20 @@
 *****TEXT BEFORE SORT*****
 
-cccc.b
-cccc,acccc.a
-ccc,b
-
+bbbbbbbb
+aaaaaaajjjjjjj
+pppppp
+rgerag45643
+gsgs/
+wgwgw4h  g2
+ q f
 
 *****TEXT AFTER SORT*****
 
-
-cccc,a
-cccc.a
-cccc.b
-cccc,b
+aaaaaaa
+bbbbbbbb
+gsdgs/
+jjjjjjj
+ppppppp
+ q fg
+regerag45643
+wgw4gw4h  g2

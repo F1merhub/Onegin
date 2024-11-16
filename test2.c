@@ -17,6 +17,8 @@ void print_not_sort_file(long file_size, int line_count, char * buffer, FILE * f
 
 int if_in_str(char * str, char c);  // проверка есть ли символ в строке
 
+int my_reverse_strcmp(char* str1, char* str2);
+
 int main()
 {
     FILE *file1 = fopen("test1.txt", "rb");
@@ -167,4 +169,16 @@ int if_in_str(char * str, char c) {
         i++;
     }
     return flag;
+}
+
+int my_reverse_strcmp(char* str1, char* str2) {
+    int i = strlen(str1);
+    int j = strlen(str2);
+    while (i >= 0 && j >= 0) {
+        if (str1[i] != str2[j])
+            break;
+        i--;
+        j--;
+    }
+    return str1[i] - str2[i];
 }
