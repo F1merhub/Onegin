@@ -13,12 +13,27 @@ int main()
 {
     FILE *file1 = fopen("test1.txt", "rb");
 
+    if (!file1)
+    {
+        printf("text from test1.txt does not exist\n");
+        return -1;
+    }
+
     fseek(file1, 0, SEEK_END);
     long file_size = ftell(file1);
     fseek(file1, 0, SEEK_SET);
 
     char *buffer;
     buffer = (char*)malloc(file_size * sizeof(char));
+    if (buffer == NULL)
+    {
+        printf("ERROR of working malloc: buffer == NULL\n");
+            free(buffer);
+            free( main_text.buffer );
+            fclose(file1);
+            return -1;
+
+    }
     fread(buffer, 1, file_size, file1);
 
     int line_count = 0;
