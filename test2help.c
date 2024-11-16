@@ -27,13 +27,26 @@ int main()
             line_count++;
     }
 
-    char buffer_for_repeat[file_size - line_count] = {};
+    char text1[] = "*****TEXT BEFORE SORT*****\n\n";
+    char text2[] = "*****TEXT AFTER SORT*****\n\n";
+    int k = 0;
+    char buffer_for_repeat[file_size - line_count + 1] = {};
     for (int i = 0; i < file_size - line_count; ++i) {
-        buffer_for_repeat[i] = buffer[i];
+        if (buffer[i] != '\r')
+            buffer_for_repeat[i] = buffer[i + k];
+        else
+        {
+            k++;
+            buffer_for_repeat[i] = buffer[i + k];
+        }
     }
+    buffer_for_repeat[file_size - line_count] = '\n';
+
 
     FILE *file2 = fopen("test2.txt", "w");
-    fwrite(buffer_for_repeat, 1, file_size, file2);
+    fputs(text1, file2);
+    fwrite(buffer_for_repeat, 1, file_size - line_count + 1, file2);
+    fputs(text2, file2);
 
     char **A;                                           //
     A = (char**)malloc(sizeof(char*)*line_count);       // расставляем указатели в массиве A
