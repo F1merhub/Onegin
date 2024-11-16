@@ -13,9 +13,14 @@ void find_size(long * file_size, FILE * file1);
 
 void find_line_count(int *line_count, long file_size, char * buffer);
 
+void print_not_sort_file(long file_size, int line_count, char * buffer, FILE * file1, FILE * file2);
+
+int if_in_str(char * str, char c);  // проверка есть ли символ в строке
+
 int main()
 {
     FILE *file1 = fopen("test1.txt", "rb");
+    FILE *file2 = fopen("test2.txt", "wb");
 
     if (!file1)
     {
@@ -36,35 +41,13 @@ int main()
             return -1;
 
     }
+
     fread(buffer, 1, file_size, file1);
 
     int line_count = 0;
     find_line_count(&line_count, file_size, buffer);
- /*   for (int i = 0; i < file_size; ++i) {
-        if (buffer[i] == '\n')
-            line_count++;
-    }*/
 
-    char text1[] = "*****TEXT BEFORE SORT*****\n\n";
-    char text2[] = "*****TEXT AFTER SORT*****\n\n";
-    int k = 0;
-    char buffer_for_repeat[file_size - line_count + 1] = {};
-    for (int i = 0; i < file_size - line_count; ++i) {
-        if (buffer[i] != '\r')
-            buffer_for_repeat[i] = buffer[i + k];
-        else
-        {
-            k++;
-            buffer_for_repeat[i] = buffer[i + k];
-        }
-    }
-    buffer_for_repeat[file_size - line_count] = '\n';
-
-
-    FILE *file2 = fopen("test2.txt", "w");
-    fputs(text1, file2);
-    fwrite(buffer_for_repeat, 1, file_size - line_count + 1, file2);
-    fputs(text2, file2);
+    print_not_sort_file(file_size, line_count, buffer, file1, file2);
 
     char **A;                                           //
     A = (char**)malloc(sizeof(char*)*line_count);       // расставляем указатели в массиве A
@@ -84,10 +67,13 @@ int main()
 
 
 int my_strcmp(char* str1, char* str2) {
-    int i = 0;
-    while (str1[i] && str2[i]) {
-        if (str1[i] != str2[i])
-            break;
+    int i1 = 0;
+    int i2 = 0;
+    char A[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    while (str1[i1] && str2[i2]) {
+        if (if_in_str(A, str[i]))
+            if (str1[i] != str2[i])
+                break;
         i++;
     }
     return str1[i] - str2[i];
@@ -135,4 +121,28 @@ void find_line_count(int *line_count, long file_size, char * buffer) {
         if (buffer[i] == '\n')
             (*line_count)++;
     }
+}
+
+void print_not_sort_file(long file_size, int line_count, char * buffer, FILE * file1, FILE * file2) {
+
+    char text1[] = "*****TEXT BEFORE SORT*****\n\n";
+    char text2[] = "\n*****TEXT AFTER SORT*****\n\n";
+    int k = 0;
+    char buffer_for_repeat[file_size - line_count + 1] = {};
+
+    for (int i = 0; i < file_size - line_count; i++) {
+        if (buffer[i] != '\r')
+            buffer_for_repeat[i] = buffer[i + k];
+        else
+        {
+            k++;
+            buffer_for_repeat[i] = buffer[i + k];
+        }
+    }
+
+    buffer_for_repeat[file_size - line_count] = '\n';
+    fputs(text1, file2);
+    fwrite(buffer_for_repeat, 1, file_size - line_count + 1, file2);
+    fputs(text2, file2);
+
 }

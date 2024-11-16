@@ -15,6 +15,8 @@ void find_line_count(int *line_count, long file_size, char * buffer);
 
 void print_not_sort_file(long file_size, int line_count, char * buffer, FILE * file1, FILE * file2);
 
+int if_in_str(char * str, char c);  // проверка есть ли символ в строке
+
 int main()
 {
     FILE *file1 = fopen("test1.txt", "rb");
@@ -39,7 +41,7 @@ int main()
             return -1;
 
     }
-    
+
     fread(buffer, 1, file_size, file1);
 
     int line_count = 0;
@@ -65,13 +67,27 @@ int main()
 
 
 int my_strcmp(char* str1, char* str2) {
-    int i = 0;
-    while (str1[i] && str2[i]) {
-        if (str1[i] != str2[i])
-            break;
-        i++;
+    int i1 = 0;
+    int i2 = 0;
+    char A[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    while (str1[i1] && str2[i2]) {
+
+        if (if_in_str(A, str1[i1]) && if_in_str(A, str2[i2]))
+        {
+            if (str1[i1] != str2[i2])
+                break;
+            i1++;
+            i2++;
+        }
+        else
+        {
+            if (!if_in_str(A, str1[i1]))
+                i1++;
+            if (!if_in_str(A, str2[i2]))
+                i2++;
+        }
     }
-    return str1[i] - str2[i];
+    return str1[i1] - str2[i2];
 }
 
 
